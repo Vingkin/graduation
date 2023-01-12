@@ -1,11 +1,9 @@
 <template>
-  <div class="app-container">
-
-
+  <div class="app-container" >
     <el-table
       @row-click="getQuestion"
       :data="courseList"
-      stripe style="width: 100%">
+      stripe style="width: 100%" >
 
       <el-table-column type="index" label="序号"
                        width="50"></el-table-column>
@@ -32,7 +30,6 @@ export default {
   methods: {
     getCourseList() {
       // this.current = page
-      console.log('cnmlgb')
       courseApi.getAll().then(result => {
         this.courseList = result.data
         console.log('yes')

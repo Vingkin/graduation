@@ -1,5 +1,6 @@
-import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+// import { login, logout, getInfo } from '../../api/login'
+import loginApi from '../../api/login'
+import { getToken, setToken, removeToken } from '../../utils/auth'
 
 const user = {
   state: {
@@ -25,25 +26,25 @@ const user = {
   },
 
   actions: {
-    // 登录
+    // 鐧诲綍
     Login({ commit }, userInfo) {
-      const data = { 'token': 'admin' }
-      setToken(data.token)
-      commit('SET_TOKEN', data.token)
-      // const username = userInfo.username.trim()
-      // return new Promise((resolve, reject) => {
-      //   login(username, userInfo.password).then(response => {
-      //     const data = response.data
-      //     setToken(data.token)
-      //     commit('SET_TOKEN', data.token)
-      //     resolve()
-      //   }).catch(error => {
-      //     reject(error)
-      //   })
-      // })
+      const data = { 'Authentication': window.sessionStorage.getItem('token') }
+      setToken(data.Authentication)
+      commit('SET_TOKEN', data.Authentication)
+      const username = userInfo.username.trim()
+      return new Promise((resolve, reject) => {
+        loginApi.login(username, userInfo.password).then(response => {
+          const data = response.data
+          setToken(data.token)
+          commit('SET_TOKEN', data.token)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
     },
 
-    // 获取用户信息
+    // 鑾峰彇鐢ㄦ埛淇℃伅
     GetInfo({ commit, state }) {
       const data = {
         'roles': 'admin',
@@ -53,24 +54,24 @@ const user = {
       commit('SET_ROLES', data.roles)
       commit('SET_NAME', data.name)
       commit('SET_AVATAR', data.avatar)
-      // return new Promise((resolve, reject) => {
-      //   getInfo(state.token).then(response => {
-      //     const data = response.data
-      //     if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-      //       commit('SET_ROLES', data.roles)
-      //     } else {
-      //       reject('getInfo: roles must be a non-null array !')
-      //     }
-      //     commit('SET_NAME', data.name)
-      //     commit('SET_AVATAR', data.avatar)
-      //     resolve(response)
-      //   }).catch(error => {
-      //     reject(error)
-      //   })
-      // })
+      return new Promise((resolve, reject) => {
+        loginApi.getInfo(state.token).then(response => {
+          const data = response.data
+          if (data.roles && data.roles.length > 0) { // 楠岃瘉杩斿洖鐨剅oles鏄惁鏄竴涓潪绌烘暟缁?
+            commit('SET_ROLES', data.roles)
+          } else {
+            reject('getInfo: roles must be a non-null array !')
+          }
+          commit('SET_NAME', data.name)
+          commit('SET_AVATAR', data.avatar)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+      })
     },
 
-    // 登出
+    // 鐧诲嚭
     LogOut({ commit, state }) {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
@@ -87,13 +88,13 @@ const user = {
       // })
     },
 
-    // 前端 登出
+    // 鍓嶇 鐧诲嚭
     FedLogOut({ commit }) {
-      // return new Promise(resolve => {
-      commit('SET_TOKEN', '')
-      removeToken()
-      // resolve()
-      // })
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        removeToken()
+        resolve()
+      })
     }
   }
 }

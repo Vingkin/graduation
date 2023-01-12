@@ -128,6 +128,9 @@ export default {
       loginApi.login(this.loginForm.username, this.loginForm.password)
         .then(response => {
           if (response.code === 1001) {
+            // window.sessionStorage.setItem("token",response.data.token)
+            // window.sessionStorage.setItem("username",response.data.username)
+            // window.sessionStorage.setItem("roles",response.data.role)
             this.loading = true
             this.$store.dispatch('Login', this.loginForm).then(() => {
               this.loading = false

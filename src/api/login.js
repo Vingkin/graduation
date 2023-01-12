@@ -1,4 +1,4 @@
-import request from '@/utils/request'
+import request from '../utils/request'
 
 export default {
   login(username, password) {
@@ -19,6 +19,24 @@ export default {
         username,
         password
       }
+    })
+  },
+  updateUser(username, password, oldPassword) {
+    return request({
+      url: '/updateUser',
+      method: 'post',
+      data: {
+        username,
+        password,
+        oldPassword
+      }
+    })
+  },
+  getInfo(token) {
+    return request({
+      url: '/info',
+      method: 'get',
+      params: { token }
     })
   }
 }
