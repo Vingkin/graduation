@@ -187,8 +187,8 @@ export default {
     load() {
       if (this.count + 1 <= this.total) {
         this.count += 1
-      }
-    },
+    }
+  },
     // 根据模块进行查询
     getCourseByModule(module) {
       courseApi.getCourseByModule(module)
