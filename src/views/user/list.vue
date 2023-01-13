@@ -32,10 +32,14 @@
       <el-table-column label="操作" width="230" align="center">
         <template slot-scope="scope">
           <!--<router-link :to="'/hospital/show/'+scope.row.id">-->
-          <el-button type="primary" size="mini">查看</el-button>
+          <el-button v-if="scope.row.role === '管理员'" type="info" size="mini"
+                     @click="changeRole(scope.row.id, scope.row.role)">设为用户
+          </el-button>
+          <el-button v-else type="warning" size="mini" @click="changeRole(scope.row.id, scope.row.role)">设为管理
+          </el-button>
           <!--</router-link>-->
           <!--<router-link :to="'/user/list/'+scope.row.hoscode">-->
-          <el-button type="danger" size="mini" @click="deleteUser(scope.row.id)">删除</el-button>
+          <el-button type="danger" size="mini" @click="isDelete(scope.row.id, scope.row.username)">删除</el-button>
           <!--</router-link>-->
           <!--<el-button v-if="scope.row.status == 1" type="primary" size="mini" @click="updateStatus(scope.row.id, 0)">下线-->
           <!--</el-button>-->
@@ -78,6 +82,53 @@ export default {
     this.fetchData()
   },
   methods: {
+    isDelete(id, username) {
+      this.$confirm('此操作将永久删除用户 ' + username + ' ，是否继续？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.deleteUser(id)
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    changeRole(id, role) {
+      if (role === '管理员') {
+        userApi.setMember(id)
+          .then(response => {
+            this.$message({
+              type: 'success',
+              message: response.message
+            })
+            this.fetchData(this.page)
+          }).catch(error => {
+          this.$message({
+            type: 'error',
+            message: error.message
+          })
+          this.fetchData(this.page)
+        })
+      } else {
+        userApi.setAdmin(id)
+          .then(response => {
+            this.$message({
+              type: 'success',
+              message: response.message
+            })
+            this.fetchData(this.page)
+          }).catch(error => {
+          this.$message({
+            type: 'error',
+            message: error.message
+          })
+          this.fetchData(this.page)
+        })
+      }
+    },
     resetData() {
       this.keyWord = ''
     },
@@ -86,13 +137,13 @@ export default {
       userApi.deleteById(id)
         .then(response => {
           this.$message({
-            type: 'success',
+            type: 'info',
             message: response.data
           })
-          this.fetchData()
+          this.fetchData(this.page)
         }).catch(error => {
         this.$message({
-          type: 'success',
+          type: 'info',
           message: error
         })
       })

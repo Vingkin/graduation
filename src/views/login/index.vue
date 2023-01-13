@@ -3,7 +3,7 @@
     <div class="login-container">
       <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on"
                label-position="left">
-        <h3 class="title">vue-admin-template</h3>
+        <h3 class="title">智慧系统</h3>
         <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user"/>
@@ -57,6 +57,7 @@
 <script>
 // import { isvalidUsername } from '@/utils/validate'
 import loginApi from '../../api/login'
+// import sha1 from 'sha1'
 
 export default {
   name: 'Login',

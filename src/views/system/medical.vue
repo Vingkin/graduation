@@ -3,9 +3,11 @@
 </template>
 
 <script>
-
+export default {
+  name: 'medical'
+}
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style scoped>
 
 </style>

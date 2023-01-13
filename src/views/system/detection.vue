@@ -3,9 +3,11 @@
 </template>
 
 <script>
-
+export default {
+  name: 'detection'
+}
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style scoped>
 
 </style>
