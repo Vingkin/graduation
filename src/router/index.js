@@ -68,7 +68,7 @@ export const constantRouterMap = [
         {
           path: 'tree',
           name: 'Tree',
-          component: () => import('@/views/test/test1'),
+          component: () => import('@/views/user/list'),
           meta: { title: '管理用户', icon: 'tree', role: ['admin'] }
         }
       ]
