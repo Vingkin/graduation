@@ -6,6 +6,7 @@
       <span v-if="roles.includes('admin')">管理员</span>
       <span v-else>成员</span>
     </div>
+    <div class="dashboard-text">电话号码: {{ phone }}</div>
   </div>
 </template>
 
@@ -16,7 +17,8 @@ export default {
   computed: {
     ...mapGetters([
       'name',
-      'roles'
+      'roles',
+      'phone'
     ])
   }
 }

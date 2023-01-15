@@ -11,13 +11,15 @@ export default {
       }
     })
   },
-  register(username, password) {
+  register(username, password, phone, code) {
     return request({
       url: '/register',
       method: 'post',
       data: {
         username,
-        password
+        password,
+        phone,
+        code
       }
     })
   },
@@ -37,6 +39,13 @@ export default {
       url: '/info',
       method: 'get',
       params: { token }
+    })
+  },
+  sendRegisterSms(phone) {
+    return request({
+      url: '/send',
+      method: 'get',
+      params: { phone }
     })
   }
 }

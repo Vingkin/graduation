@@ -26,8 +26,9 @@
       </el-table-column>
 
       <el-table-column prop="username" label="用户名"/>
-      <el-table-column prop="role" label="role" width="90"/>
+      <el-table-column prop="phone" label="电话号码"/>
       <el-table-column prop="createTime" label="创建时间"/>
+      <el-table-column prop="role" label="角色" width="90"/>
 
       <el-table-column label="操作" width="230" align="center">
         <template slot-scope="scope">

@@ -60,14 +60,14 @@ export const asyncRouterMap = [
         meta: { title: '垃圾检测', icon: 'table', role: ['admin', 'member'] }
       },
       {
-        path: 'medical',
-        name: 'medical',
+        path: 'medical1',
+        name: 'medical1',
         component: () => import('@/views/system/medical'),
         meta: { title: '肺部分割', icon: 'table', role: ['admin', 'member'] }
       },
       {
-        path: 'medical',
-        name: 'medical',
+        path: 'medical2',
+        name: 'medical2',
         component: () => import('@/views/system/medical'),
         meta: { title: '病灶分割', icon: 'table', role: ['admin', 'member'] }
       }

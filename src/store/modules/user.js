@@ -6,6 +6,7 @@ const user = {
   state: {
     token: getToken(),
     name: '',
+    phone: '',
     avatar: '',
     roles: []
   },
@@ -22,7 +23,10 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
-    }
+    },
+    SET_PHONE: (state, phone) => {
+      state.phone = phone
+    },
   },
 
   actions: {
@@ -49,11 +53,13 @@ const user = {
       const data = {
         'roles': 'admin',
         'name': 'admin',
+        'phone': '12345678901',
         'avatar': 'https://vingkin-1304361015.cos.ap-shanghai.myqcloud.com/Docker/title.jpg'
       }
       commit('SET_ROLES', data.roles)
       commit('SET_NAME', data.name)
       commit('SET_AVATAR', data.avatar)
+      commit('SET_PHONE', data.phone)
       return new Promise((resolve, reject) => {
         loginApi.getInfo(state.token).then(response => {
           const data = response.data
@@ -64,6 +70,9 @@ const user = {
           }
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)
+          commit('SET_PHONE', data.phone)
+          // console.log(data.phone)
+          // console.log(data.name)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -75,6 +84,7 @@ const user = {
     LogOut({ commit, state }) {
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
+      commit('SET_PHONE', '')
       removeToken()
       // return new Promise((resolve, reject) => {
       //   logout(state.token).then(() => {
